@@ -1,6 +1,107 @@
+<!-- fishing_ml/templates/home.html -->
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norway Fishing ML Model</title>
+    <style>
+        .feature-button {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Norway Fishing ML Model</h1>
+    <form id="fishingForm", method="POST">
+        {% csrf_token %}
+        <br>
+        <label for="latitude">Latitude:</label>
+        <input type="number" id="latitude" name="latitude" step="any" class="feature-button">
+        <br>
+        <label for="longitude">Longitude:</label>
+        <input type="number" id="longitude" name="longitude" step="any" class="feature-button">
+        <br>
+        <label for="crew">Crew:</label>
+        <input type="number" id="crew" name="crew" step="1" class="feature-button">
+        <br>
+        <label for="shipLength">Ship Length:</label>
+        <input type="number" id="shipLength" name="shipLength" step="any" class="feature-button">
+        <br>
+        <label for="enginePower">Engine Power:</label>
+        <input type="number" id="enginePower" name="enginePower" step="any" class="feature-button">
+        <br>
+        <label for="shipAge">Ship Age:</label>
+        <input type="number" id="shipAge" name="shipAge" step="1" class="feature-button">
+        <br>
+        <br>
+        <!-- Dropdown list for selecting species -->
+        <label for="species">Species:</label>
+        <select id="species" name="species" required>
+            <option value="cod">COD</option>
+            <option value="pok">POK</option>
+            <option value="HAD">HAD</option>
+            <option value="LIN">LIN</option>
+            <option value="KCD">KCD</option>
+            <option value="HAL">HAL</option>
+            <option value="MON">MON</option>
+            <option value="USK">USK</option>
+            <option value="REG">REG</option>
+            <option value="BET">BET</option>
+            <!-- Add options for other species -->
+        </select>
+        <br>
+        <button type="submit">Predict</button>
+    </form>
+    <div id="predictionResult"></div>
+
+    <script>
+        document.getElementById("fishingForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
+
+            // Get the CSRF token from the cookie
+            const csrftoken = getCookie('csrftoken');
+            
+            // Send data to backend for prediction
+            fetch("/predict/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("predictionResult").innerText = `Prediction: ${data.prediction}`;
+            })
+            .catch(error => console.error("Error:", error));
+        });
+
+        // Function to get CSRF cookie
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
