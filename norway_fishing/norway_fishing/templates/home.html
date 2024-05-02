@@ -1,29 +1,198 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page</title>
-</head>
-<body>
-    <header>
-        <h1>Welcome to My Website</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <!-- Add more navigation links here -->
-        </ul>
-    </nav>
-    <main>
-        <section>
-            <h2>About Us</h2>
-            <p>This is a simple website created with Django.</p>
-        </section>
-        <!-- Add more sections/content here -->
-    </main>
-    <footer>
-        <p>&copy; 2024 My Website</p>
-    </footer>
-</body>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="{% static 'materialize/css/materialize.min.css' %}"
+      media="screen,projection"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'leaflet/leaflet.css' %}"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="{% static 'style.css'%}" />
+  </head>
+  <body class="indigo lighten-5">
+    <div class="container-fluid">
+      <h2 class="center lato-regular">Choose your next fishing spot</h2>
+      <div class="container" id="map-container">
+        <div id="map" class="center-align"></div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6">
+                <select>
+                  <option value="" disabled selected>
+                    Choose your municipality
+                  </option>
+                  {% for fm in fm_list %}
+                  <option value="{{ fm }}">{{ fm }}</option>
+                  {% endfor %}
+                </select>
+                <label>Select fishing municipality</label>
+              </div>
+              <div class="col s6">
+                <p>Crew size: <span id="slider-value">5</span></p>
+                <div class="range-field">
+                  <input type="range" id="slider" min="1" max="44" value="5" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <select>
+                  <option value="" disabled selected>
+                    Choose your vessel county (code)
+                  </option>
+                  {% for vc in vc_list %}
+                  <option value="{{ vc }}">{{ vc }}</option>
+                  {% endfor %}
+                </select>
+                <label>Select Vessel County</label>
+              </div>
+              <div class="col s6">
+                <p>Ship length: <span id="ship-length">6</span></p>
+                <div class="range-field">
+                  <input
+                    type="range"
+                    id="sl_slider"
+                    min="6"
+                    max="87.8"
+                    value="6"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s4">
+                <input
+                  type="number"
+                  id="year"
+                  min="1923"
+                  max="2023"
+                  class="validate"
+                />
+                <label for="year">Ship year of construction(1923 - 2023)</label>
+              </div>
+              <div class="col s4">
+                <p>Engine power: <span id="engine-power">6</span></p>
+                <p class="range-field">
+                  <input
+                    type="range"
+                    id="ep_slider"
+                    min="10"
+                    max="10000"
+                    value="20"
+                  />
+                </p>
+            </div>
+                <div class="input-field col s4">
+                  <input
+                    type="number"
+                    id="engineyear"
+                    min="1955"
+                    max="2023"
+                    class="validate"
+                  />
+                  <label for="engineyear"
+                    >Engine year of construction(1955 - 2023)</label
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s4">
+                  <select>
+                    <option value="appCode" disabled selected>
+                      Purpose of fishing
+                    </option>
+                    {% for ac, ac_name in ac_list.items %}
+                    <option value="{{ ac }}">{{ ac_name }}</option>
+                    {% endfor %}
+                  </select>
+                  <label>Purpose of fishing</label>
+                </div>
+                <div class="input-field col s4">
+                  <select>
+                    <option value="coastOrOcean" disabled selected>
+                      Coast / ocean
+                    </option>
+                    <option value="coast">Coast</option>
+                    <option value="ocean">Ocean</option>
+                  </select>
+                  <label>Coast / Ocean</label>
+                </div>
+                <div class="input-field col s4">
+                  <select>
+                    <option value="quota" disabled selected>
+                      Quota
+                    </option>
+                    {% for qc, qc_text in qc_list.items %}
+                    <option value="{{ qc }}">{{ qc_text }}</option>
+                    {% endfor %}
+                  </select>
+                  <label>Quota</label>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="container">
+        <footer>
+          <p>&copy; 2024 My Website</p>
+        </footer>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script
+      type="text/javascript"
+      src="{% static 'materialize/js/materialize.min.js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'leaflet/leaflet.js' %}"
+    ></script>
+    <script type="text/javascript" src="{% static 'home.js' %}"></script>
+    <script>
+       var map = L.map("map", {
+         center: [65.472, 8.4689],
+         zoom: 4.2,
+         maxZoom: 4.2,
+         minZoom: 4.2,
+         dragging: false, // Disable dragging
+       });
+       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+         attribution:
+           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+       }).addTo(map);
+
+       var gpsMarker = null;
+       map.on("click", (e) => {
+         console.log(e.latlng);
+         if (gpsMarker == null) {
+           gpsMarker = L.marker(e.latlng).addTo(map);
+         } else {
+           gpsMarker.setLatLng(e.latlng);
+         }
+       });
+
+       document.addEventListener('DOMContentLoaded', function() {
+         var elems = document.querySelectorAll('.dropdown-trigger');
+         var instances = M.Dropdown.init(elems, options);
+       });
+       $(document).ready(function(){
+         $('.modal').modal();
+         $('select').formSelect();
+      });
+    </script>
+  </body>
 </html>
