@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Reddit+Sans+Condensed:wght@200..900&display=swap');
+
+.reddit-sans-condensed {
+  font-family: "Reddit Sans Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.lato-regular {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+#map{
+    height: 600px;
+    width: 600px;
+}
+
+#map-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dropdown-content{
+    width: max-content !important;
+ }
