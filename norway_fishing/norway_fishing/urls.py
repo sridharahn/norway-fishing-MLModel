@@ -16,12 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import home, randomforest, predict
+from .views import randomforest, predict_knn, landing
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'),
-    path('predict/', predict, name='predict'),
+    path('', landing, name='landing'),
+    path('models/predictknn', predict_knn, name='predict_knn'),
     path('models/randomforest', randomforest, name='randomforest')
 ]
 
