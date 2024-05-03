@@ -81,6 +81,7 @@ if (
         .then((data) => {
             $("#suggestionContainer").show();
             $('#suggestionCards').empty();
+            $('#predictionCards2').empty();
             $.each(data.prediction, function(index, value) {
                 createPrediction(value.code, value.tool, value.name);
             });
