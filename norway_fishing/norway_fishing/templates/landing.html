@@ -39,12 +39,15 @@
     <div id="wrapper">
       <!-- Header -->
       <header id="header">
-        <div class="logo">
+        <div
+          class="logo"
+          style="display: flex; justify-content: center; align-items: center"
+        >
           <i class="fas fa-fish" style="color: white; font-size: 48px"></i>
         </div>
         <div class="content">
           <div class="inner">
-            <h1>Norway Fishiries</h1>
+            <h1>Norway Fisheries</h1>
             <p style="color: white">
               Designed to predict species that can be found for given parameters
               using Machine learning.
@@ -61,7 +64,7 @@
               <a href="#species" class="text-white">Species predictor</a>
             </li>
             <li style="width: 300px">
-              <a href="#work" class="text-white">Tools predictor</a>
+              <a href="#tools" class="text-white">Tools predictor</a>
             </li>
             <li style="width: 300px">
               <a href="#stats" class="text-white">Statistics</a>
@@ -74,26 +77,35 @@
       <div id="main">
         <!-- species -->
         <!-- species -->
-        <article id="species" style='height:auto'>
-
+        <article id="species" style="height: auto">
           <div class="container-fluid bg-dark text-white" data-bs-theme="dark">
-
             <form id="speciesForm">
               {% csrf_token %}
               <div class="card container text-center bg-dark text-white">
                 <h3 class="m-4">Choose your next fishing spot on the map</h3>
+                <div class="row text-center" style="display:none" id="mapLatLng">
+                  <div class="col-12">Lat: <span id="latitude1"></span>, Lng: <span id="longitude1"></span></div>
+                </div>
                 <div
                   class="row gx-3 m-2"
-                  style="display: flex; align-items: center; justify-content: center"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
                 >
                   <div class="container" id="map-container">
                     <div id="map" class="center-align"></div>
                   </div>
                 </div>
-      
+
                 <div
                   class="row gx-3"
-                  style="display: flex; align-items: center; justify-content: center"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
                 >
                   <div class="col-4">
                     <div class="pt-3 align-middle">
@@ -110,21 +122,23 @@
                       >
                         <option value="" disabled selected>Choose...</option>
                         {% for month in months %}
-                        <option value="{{ month.code }}">{{ month.name }}</option>
+                        <option value="{{ month.code }}">
+                          {{ month.name }}
+                        </option>
                         {% endfor %}
                       </select>
                       <label for="Landing month (code)">Month</label>
                     </div>
                   </div>
                 </div>
-      
+
                 <div class="row gx-3" style="justify-content: center">
                   <hr style="width: 75%" />
                 </div>
-      
+
                 <div class="container">
                   <h4>Municipality Details</h4>
-      
+
                   <div
                     class="row gx-3 text-center"
                     style="
@@ -168,11 +182,13 @@
                           <option value="{{ vc }}">{{ vc }}</option>
                           {% endfor %}
                         </select>
-                        <label for="Vessel county (code)">Vessel County Code</label>
+                        <label for="Vessel county (code)"
+                          >Vessel County Code</label
+                        >
                       </div>
                     </div>
                   </div>
-      
+
                   <div
                     class="row gx-3 text-center"
                     style="
@@ -207,7 +223,9 @@
                           id="Zone (code)"
                           required
                         >
-                          <option value="" disabled selected>Select zone code</option>
+                          <option value="" disabled selected>
+                            Select zone code
+                          </option>
                           {% for zone in zone_list %}
                           <option value="{{ zone }}">{{ zone }}</option>
                           {% endfor %}
@@ -216,7 +234,7 @@
                       </div>
                     </div>
                   </div>
-      
+
                   <div
                     class="row gx-3 text-center"
                     style="
@@ -252,14 +270,14 @@
                     </div>
                   </div>
                 </div>
-      
+
                 <div class="row gx-2 pt-3" style="justify-content: center">
                   <hr style="width: 75%" />
                 </div>
-      
+
                 <div class="container">
                   <h4>Ship Details</h4>
-      
+
                   <div
                     class="row gx-3 text-center"
                     style="
@@ -307,7 +325,7 @@
                       </div>
                     </div>
                   </div>
-      
+
                   <div
                     class="row gx-3 text-center"
                     style="
@@ -334,7 +352,8 @@
                     </div>
                     <div class="col-4">
                       <label for="Greatest length" class="form-label"
-                        >Ship Length: <span id="ship-length">5</span> meters</label
+                        >Ship Length:
+                        <span id="ship-length">5</span> meters</label
                       >
                       <input
                         required
@@ -349,7 +368,7 @@
                       />
                     </div>
                   </div>
-      
+
                   <div
                     class="row gx-3 text-center"
                     style="
@@ -377,7 +396,8 @@
                     </div>
                     <div class="col-4">
                       <label for="Engine power" class="form-label"
-                        >Engine Power: <span id="engine-power">10</span> HP</label
+                        >Engine Power:
+                        <span id="engine-power">10</span> HP</label
                       >
                       <input
                         required
@@ -392,7 +412,7 @@
                       />
                     </div>
                   </div>
-      
+
                   <div
                     class="row gx-3 mt-4 text-center"
                     style="
@@ -414,20 +434,22 @@
                         id="option5"
                         autocomplete="off"
                         checked
+                        value="coast"
                       />
                       <label class="btn" for="option5">Yes</label>
-      
+
                       <input
                         type="radio"
                         class="btn-check"
                         name="Coast/ocean (code)"
                         id="option6"
                         autocomplete="off"
+                        value="ocean"
                       />
                       <label class="btn" for="option6">No</label>
                     </div>
                   </div>
-      
+
                   <div
                     class="row gx-3 mt-4 text-center"
                     style="
@@ -445,31 +467,311 @@
                       Please select a fishing spot in the above map !
                     </div>
                   </div>
-      
+
                   <div class="gx-3 m-3 p-3 col-12">
-                    <button class="btn btn-primary" type="submit">Find Possible Species</button>
+                    <button class="btn btn-primary" type="submit">
+                      Find Possible Species
+                    </button>
                   </div>
                 </div>
               </div>
             </form>
-      
-            <div class="card container pt-4 mt-4" id="predictContainer" style='display: none;'>
+
+            <div
+              class="card container pt-4 mt-4"
+              id="predictContainer"
+              style="display: none"
+            >
               <div class="text-center">
-              <h3>Species predicted to be caught:</h3>
+                <h3>Species predicted to be caught:</h3>
               </div>
-              <div class="card-columns row card-deck" id="predictionCards">
-      
-              </div>
+              <div
+                class="card-columns row card-deck"
+                id="predictionCards"
+              ></div>
             </div>
           </div>
-
         </article>
 
-        <!-- Work -->
-        <article id="work"></article>
+        <!-- tool -->
+        <article id="tools" style="height: auto">
+          <div class="container-fluid bg-dark text-white">
+            <form id="toolsForm">
+              {% csrf_token %}
+              <div class="card container text-center">
+                <h3 class="m-4">Choose your next fishing spot on the map</h3>
+                <div class="row text-center" style="display:none" id="mapLatLng2">
+                  <div class="col-12">Lat: <span id="latitude2"></span>, Lng: <span id="longitude2"></span></div>
+                </div>
+                <div
+                  class="row gx-3 m-2"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+                  <div class="container" id="map-container2">
+                    <div id="map2" class="center-align"></div>
+                  </div>
+                </div>
 
+                <div
+                  class="row gx-3"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+                  <div class="col-4">
+                    <div class="pt-3 align-middle">
+                      When are you planning the fishing expedition?
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="p-3 form-floating">
+                      <select
+                        required
+                        class="form-select"
+                        id="Landing month (code)"
+                        name="Landing month (code)"
+                      >
+                        <option value="" disabled selected>Choose...</option>
+                        {% for month in months %}
+                        <option value="{{ month.code }}">
+                          {{ month.name }}
+                        </option>
+                        {% endfor %}
+                      </select>
+                      <label for="Landing month (code)">Month</label>
+                    </div>
+                  </div>
+                </div>
 
-        <article id="stats"></article>
+                <div class="row gx-2 pt-3" style="justify-content: center">
+                  <hr style="width: 75%" />
+                </div>
+
+                <div class="container">
+                  <h4>Ship Details</h4>
+
+                  <div
+                    class="row gx-3 text-center"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    <div class="col-4">
+                      <div class="mb-3">
+                        <input
+                          required
+                          type="number"
+                          name="Year of construction"
+                          class="form-control"
+                          id="Year of construction"
+                          placeholder="Enter year"
+                          type="number"
+                          min="1923"
+                          max="2023"
+                        />
+                        <label for="Year of construction"
+                          >Ship Construction Year (1923-2023)</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="p-3">
+                        <div class="mb-3">
+                          <input
+                            required
+                            type="number"
+                            name="Year of engine construction"
+                            class="form-control"
+                            id="Year of engine construction"
+                            placeholder="Enter year"
+                            type="number"
+                            min="1955"
+                            max="2023"
+                          />
+                          <label for="Year of engine construction"
+                            >Engine Construction Year (1955-2023)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="row gx-3 text-center"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    <div class="col-3">
+                      <label for="Crew" class="form-label"
+                        >Crew size: <span id="Crew-value2">5</span></label
+                      >
+                      <input
+                        required
+                        type="range"
+                        class="form-range"
+                        min="1"
+                        max="44"
+                        value="1"
+                        step="1"
+                        id="Crew2"
+                        name="Crew"
+                      />
+                    </div>
+                    <div class="col-3">
+                      <label for="Greatest length" class="form-label"
+                        >Ship Length:
+                        <span id="ship-length2">5</span> meters</label
+                      >
+                      <input
+                        required
+                        type="range"
+                        class="form-range"
+                        min="6"
+                        max="88"
+                        value="6"
+                        step="0.5"
+                        id="sl_slider2"
+                        name="Greatest length"
+                      />
+                    </div>
+
+                    <div class="col-3">
+                      <label for="Engine power" class="form-label"
+                        >Engine Power:
+                        <span id="engine-power2">10</span> HP</label
+                      >
+                      <input
+                        required
+                        type="range"
+                        class="form-range"
+                        min="10"
+                        max="10000"
+                        value="20"
+                        step="10"
+                        id="ep_slider2"
+                        name="Engine power"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="row gx-2 pt-3" style="justify-content: center">
+                    <hr style="width: 75%" />
+                  </div>
+
+                  <div class="row gx-2 pt-3" style="justify-content: center">
+                    <div class="col-4">
+                      <div class="pt-3 align-middle">
+                        What fish species are you interested in?
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="p-3 form-floating">
+                        <select
+                          required
+                          class="form-select"
+                          id="speciesCode"
+                          name="speciesCode"
+                        >
+                          <option value="" disabled selected>Choose...</option>
+                          {% for sp_code, sp_name in species_list.items %}
+                          <option value="{{ sp_code }}">{{ sp_name }}</option>
+                          {% endfor %}
+                        </select>
+                        <label for="speciesCode">Month</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="row gx-3 mt-4 text-center"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    <div
+                      id="locationError2"
+                      style="display: none"
+                      class="col-6 alert alert-danger gx-3"
+                      role="alert"
+                    >
+                      Please select a fishing spot in the above map !
+                    </div>
+                  </div>
+
+                  <div class="gx-3 m-3 p-3 col-12">
+                    <button class="btn btn-primary" type="submit">
+                      Find the right tool
+                    </button>
+                  </div>
+
+                  <div
+                    class="row gx-3 m-3 p-3"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                    id="predictionCards2"
+                  ></div>
+                </div>
+              </div>
+            </form>
+
+            <div
+              class="card container pt-4 mt-4"
+              style="display: none"
+              id="suggestionContainer"
+            >
+              <div class="text-center">
+                <h4>Tools suggestion for other frequently caught species:</h4>
+              </div>
+              <div
+                class="card-columns row card-deck"
+                id="suggestionCards"
+                style="display: flex; justify-content: center"
+              ></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="stats" style="height: auto">
+          <div class="card container-fluid bg-dark text-white text-center p-3">
+            <div class"row p-3">
+              <h3>Statistics</h3>
+            </div>
+            <div class"row gx-3 p-3" style="padding-top:50px">
+              <h5>Zone-wise product weight caught</h5>
+            </div>
+            <div class"row gx-3 p-3">
+              <img src="{% static 'zone_wise_product_weight.png'%}" class=" rounded img-fluid" alt="..." style="height:500px">
+            </div>
+            <div class"row gx-3 p-3 mt-3" style="padding-top:50px">
+              <h5>Top 5 species caught per month</h5>
+            </div>
+            <div class"row gx-3 p-3 mt-3">
+              <img src="{% static 'top_5_species.png'%}" class=" rounded img-fluid" alt="..." style="height:500px">
+            </div>
+            <div class"row gx-3 p-3" style="padding-top:50px">
+              <h5>feature importance using PCA</h5>
+            </div>
+            <div class"row gx-3 p-3">
+              <img src="{% static 'feature_imp.png'%}" class=" rounded img-fluid" alt="..." style="height:500px">
+            </div>
+          </div>
+        </article>
       </div>
 
       <!-- Footer -->
@@ -505,6 +807,13 @@
     ></script>
     <script type="text/javascript" src="{% static 'home.js' %}"></script>
     <script>
+      var map2 = L.map("map2", {
+        center: [65.472, 8.4689],
+        zoom: 4.2,
+        maxZoom: 4.2,
+        minZoom: 4.2,
+        dragging: false, // Disable dragging
+      });
       var map = L.map("map", {
         center: [65.472, 8.4689],
         zoom: 4.2,
@@ -516,14 +825,37 @@
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }).addTo(map);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(map2);
 
       var locMarker = null;
+      var locMarker2 = null;
       map.on("click", (e) => {
         console.log(e.latlng);
         if (locMarker == null) {
           locMarker = L.marker(e.latlng).addTo(map);
+          document.getElementById("mapLatLng").style.display = "block";
+          document.getElementById("latitude1").textContent = e.latlng.lat.toFixed(6);
+          document.getElementById("longitude1").textContent = e.latlng.lng.toFixed(6);
         } else {
           locMarker.setLatLng(e.latlng);
+          document.getElementById("latitude1").textContent = e.latlng.lat.toFixed(6);
+          document.getElementById("longitude1").textContent = e.latlng.lng.toFixed(6);
+        }
+      });
+      map2.on("click", (e) => {
+        console.log(e.latlng);
+        if (locMarker2 == null) {
+          locMarker2 = L.marker(e.latlng).addTo(map2);
+          document.getElementById("mapLatLng2").style.display = "block";
+          document.getElementById("latitude2").textContent = e.latlng.lat.toFixed(6);
+          document.getElementById("longitude2").textContent = e.latlng.lng.toFixed(6);
+        } else {
+          locMarker2.setLatLng(e.latlng);
+          document.getElementById("latitude2").textContent = e.latlng.lat.toFixed(6);
+          document.getElementById("longitude2").textContent = e.latlng.lng.toFixed(6);
         }
       });
       // Function to get CSRF cookie
