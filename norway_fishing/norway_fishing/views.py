@@ -101,7 +101,6 @@ def predict_knn(request):
                 'name':species_map[code]
             })
 
-        print(data_list)
         # Make prediction using the loaded ML model
         scaled_data = knn_scaler.transform(data_list)
         knn_prediction = knn_model.predict(scaled_data)
@@ -119,8 +118,6 @@ def predict_knn(request):
                 remaining_species_list.append(fish)
 
         return JsonResponse({'success' : True, 'value': 'KNN Model called','prediction': selected_species_list, 'suggestion': remaining_species_list})
-      
-import logging
 
 def randomforest(request):
     if request.method == 'GET':
@@ -128,8 +125,6 @@ def randomforest(request):
 
     elif request.method == 'POST':
         data = json.loads(request.body)
-        print("request",data)
-        print("request",data.get('Zone (code)', None))
         features_input_list = ['Fishing municipality (code)', 'Crew', 'Ship municipality (code)',
             'Vessel county (code)', 'Greatest length', 'Year of construction',
             'Engine power', 'Year of engine construction', 'Quota type (code)',
@@ -163,12 +158,10 @@ def randomforest(request):
 
         species_map = {'COD':'Atlantic Cod', 'POK':'Pollock', 'HAD':'Haddock', 'LIN':'Ling', 'KCD':'Red King Crab', 'HAL':'Atlantic Halibut', 'MON':'Angler(Monk)', 'USK':'Cusk', 'REG':'Golden Redfish', 'PRA':'Northern Prawn'}
         
-        print(data_list)
         testip_np = np.array(data_list)
         warnings.simplefilter("ignore")
         scaled_data = rf_scaler.transform(testip_np)
         predicted_val = rf_classifier.predict(scaled_data)
-        print(predicted_val)
         toolList = [tool for tool in toolGroup.values()]
 
         
